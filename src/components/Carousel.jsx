@@ -31,8 +31,8 @@ const Carousel = () => {
   const visibleItems = getVisibleItems();
 
   return (
-    <div className="relative w-[80%] mt-[1000px] overflow-hidden">
-      <div className="flex items-center justify-between absolute top-1/2 transform -translate-y-1/2 w-full px-6">
+    <div className="md:relative absolute w-[80%] mt-[1000px] overflow-hidden">
+      <div className=" md:flex hidden items-center justify-between absolute top-1/2 transform -translate-y-1/2 w-full px-6">
         <button
           onClick={prevSlide}
           className="backdrop-brightness-50 h-14 w-14 text-xl text-white rounded-full p-2 hover:bg-gray-300 hover:text-black flex items-center justify-center"
@@ -46,7 +46,7 @@ const Carousel = () => {
           <FaArrowRight />
         </button>
       </div>
-      <div className="flex  transition-transform duration-500 ease-in-out">
+      <div className="md:flex hidden transition-transform duration-500 ease-in-out">
         {visibleItems.map((item) => (
           <div
             key={item.id}

@@ -39,8 +39,6 @@ function Home() {
      
      <Booking/>
 
-      {/* Carousel */}
-
 
        {/* Footer  */}
 
