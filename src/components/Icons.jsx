@@ -2,22 +2,21 @@ import React from 'react';
 
 function Icons() {
   const items = [
-    { id: 1, content: 'Item 1', image: 'https://img.freepik.com/free-vector/cute-boy-standing-position-showing-thumb_96037-450.jpg?t=st=1718874196~exp=1718877796~hmac=156862384d11d74e8b477e49964fd11101bca98ea8f6d7dc3faf00a6c0477607&w=1380' },
-    { id: 2, content: 'Item 2', image: 'https://img.freepik.com/free-vector/boy-with-empty-board_1308-82417.jpg?t=st=1718874351~exp=1718877951~hmac=4272634132c768b5daa8d58f79daf51df6aa6b92f8817124c18d75412e315046&w=740' },
-    { id: 3, content: 'Item 3', image: 'https://img.freepik.com/free-photo/funny-3d-cartoon-casual-character_183364-80223.jpg?t=st=1718874922~exp=1718878522~hmac=f5f66bb5f925e959119c15ba9035691a97cd188ba2b2e531d68bc098031b6182&w=1380' },
-    { id: 4, content: 'Item 4', image: 'https://img.freepik.com/free-vector/cartoon-character-girls-playing-seesaw-white-background_1308-53977.jpg?t=st=1718874800~exp=1718878400~hmac=aeca6bc2970e2f8314499ae623fb0a1548c9b74e77839800510546f758f686bb&w=1480' },
-    { id: 5, content: 'Item 5', image: 'https://img.freepik.com/premium-vector/cat-playing-drums_444196-30454.jpg?w=996' },
+    { id: 1, content: 'Top Travel App in India', image: 'https://zen.wego.com/web/illustrations/look-no-further.png',text1:'Highly rated in App Store & Play Store' },
+    { id: 2, content: 'Shop with confidence', image: 'https://zen.wego.com/web/illustrations/shop-with-confidence.png',text1:'No hidden fees, taxes or other nasty surprises' },
+    { id: 3, content: 'Pay the way you want', image: 'https://zen.wego.com/web/illustrations/pay-the-way-you-want.png',text1:'See only sellers who support your preferred methods' },
+    { id: 4, content: 'Instant booking', image: '	https://zen.wego.com/web/illustrations/instant-booking.png',text1:'For selected sellers, book with just a couple of clicks' },
   ];
 
   return (
-    <div className="w-full p-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 text-center ">
+    <div className="w-full p-8 md:mt-44 mt-60">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center p-20">
         {items.map((item) => (
-          <div key={item.id} className="bg-transparent overflow-hidden ">
-            <img src={item.image} alt={item.content} className="object-contain w-full h-80" />
-            <div className="p-4 backdrop-brightness-50 rounded-full">
-              <h2 className="text-lg font-bold mb-0">{item.content}</h2>
-              <p className="text-white mb-2 text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate at, sunt, dolorum doloribus commodi necessitatibus voluptate fuga rerum </p>
+          <div key={item.id} className="bg-transparent overflow-hidden flex-col items-center justify-center">
+            <img src={item.image} alt={item.content} className="flex object-contain w-full h-80" />
+            <div className='text-center'>
+              <h2 className="text-2xl font-bold mb-0">{item.content}</h2>
+              <p className="text-black mb-2 text-xl">{item.text1} </p>
             </div>
           </div>
         ))}
@@ -27,3 +26,4 @@ function Icons() {
 }
 
 export default Icons;
+

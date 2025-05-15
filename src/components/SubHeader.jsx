@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaUserPlus } from 'react-icons/fa6';
 import { IoMdLogIn } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import { IoMdLogOut } from 'react-icons/io';
+import { Link, useNavigate } from 'react-router-dom';
 
 function SubHeader({ currentView, setCurrentView }) {
   const [showFLDropdown, setShowFLDropdown] = useState(false);
@@ -10,6 +11,13 @@ function SubHeader({ currentView, setCurrentView }) {
   const [selectedFL, setSelectedFL] = useState('FL');
   const [selectedEN, setSelectedEN] = useState('ENG');
   const [selectedINR, setSelectedINR] = useState('INR');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
 
   const handleFLSelect = (country) => {
     setSelectedFL(country);
@@ -24,6 +32,12 @@ function SubHeader({ currentView, setCurrentView }) {
   const handleINRSelect = (currency) => {
     setSelectedINR(currency);
     setShowINRDropdown(false); // Close dropdown after selection
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/home');
   };
 
   return (
@@ -154,22 +168,33 @@ function SubHeader({ currentView, setCurrentView }) {
         </div>
       </div>
 
-      {/* Login and Get Started Buttons */}
+      {/* Login and Logout Buttons */}
       <div className="flex w-1/3 justify-start items-center space-x-5">
-        <Link to="/login">
-          <IoMdLogIn className='flex cursor-pointer w-8 h-8 text-indigo-500 md:hidden' />
+        {isLoggedIn ? (
           <button
-            className={`w-32 hidden md:flex justify-center items-center h-10 hover:bg-slate-300 border-2 border-slate-200  hover:text-black rounded-full ml-5`}
+            className="w-32 flex justify-center items-center h-10 bg-red-500 hover:bg-red-700 text-white rounded-full ml-5"
+            onClick={handleLogout}
           >
-            LOGIN
+            <IoMdLogOut className="mr-2" /> LOGOUT
           </button>
-        </Link>
-        <Link to="/">
-          <FaUserPlus className='flex cursor-pointer w-8 h-8 text-indigo-500 md:hidden' />
-          <button className="w-40 hidden md:flex justify-center items-center h-10 bg-indigo-500 hover:bg-indigo-700 text-white rounded-full">
-            GET STARTED
-          </button>
-        </Link>
+        ) : (
+          <Link to="/login">
+            <IoMdLogIn className='flex cursor-pointer w-8 h-8 text-indigo-500 md:hidden' />
+            <button
+              className={`w-32 hidden md:flex justify-center items-center h-10 hover:bg-slate-300 border-2 border-slate-200  hover:text-black rounded-full ml-5`}
+            >
+              LOGIN
+            </button>
+          </Link>
+        )}
+        {!isLoggedIn && (
+          <Link to="/">
+            <FaUserPlus className='flex cursor-pointer w-8 h-8 text-indigo-500 md:hidden' />
+            <button className="w-40 hidden md:flex justify-center items-center h-10 bg-indigo-500 hover:bg-indigo-700 text-white rounded-full">
+              GET STARTED
+            </button>
+          </Link>
+        )}
       </div>
     </header>
   );

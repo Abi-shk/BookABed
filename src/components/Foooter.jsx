@@ -6,16 +6,16 @@ function Foooter() {
     <p className="text-sm">&copy; {new Date().getFullYear()} BookABed. All rights reserved.</p>
       <div className="flex space-x-4">
         <a href="#" className="text-white hover:text-gray-400">
-        <i class='bx bxl-facebook-square text-3xl'></i>
+        <i className='bx bxl-facebook-square text-3xl'></i>
         </a>
         <a href="#" className="text-white hover:text-gray-400">
-        <i class='bx bxl-twitter text-3xl'></i>
+        <i className='bx bxl-twitter text-3xl'></i>
         </a>
         <a href="#" className="text-white hover:text-gray-400">
-        <i class='bx bxl-instagram-alt text-3xl'></i>
+        <i className='bx bxl-instagram-alt text-3xl'></i>
         </a>
         <a href="#" className="text-white hover:text-gray-400">
-        <i class='bx bxl-gmail text-3xl'></i>
+        <i className='bx bxl-gmail text-3xl'></i>
         </a>
       </div>
      

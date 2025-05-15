@@ -12,14 +12,14 @@ const Register = () => {
 
   const validate = () => {
     const newErrors = {};
-    if (!firstName) newErrors.firstName = 'First name is required';
-    if (!lastName) newErrors.lastName = 'Last name is required';
-    if (!email) {
+    if (!firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!lastName.trim()) newErrors.lastName = 'Last name is required';
+    if (!email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = 'Email address is invalid';
     }
-    if (!password) {
+    if (!password.trim()) {
       newErrors.password = 'Password is required';
     } else if (password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
@@ -32,14 +32,19 @@ const Register = () => {
     const newErrors = validate();
     if (Object.keys(newErrors).length === 0) {
       try {
-        const response = await axios.post('http://localhost:3000/register', { firstName, email, password });
+        const response = await axios.post('https://bookabed-backend.onrender.com/api/register', { firstName, lastName, email, password });
         if (response.data.success) {
           navigate('/login');
         } else {
           setErrors({ general: response.data.message });
         }
       } catch (error) {
-        setErrors({ general: 'An error occurred. Please try again.' });
+        if (error.response && error.response.status === 400 && error.response.data.message === 'Email already exists') {
+          setErrors({ email: 'Email already exists' });
+        } else {
+          console.error('Registration error:', error);
+          setErrors({ general: 'An error occurred. Please try again.' });
+        }
       }
     } else {
       setErrors(newErrors);
@@ -54,7 +59,7 @@ const Register = () => {
             <img 
               src="https://cdni.iconscout.com/illustration/premium/thumb/woman-booking-hotel-online-3862325-3213896.png" 
               alt="Background"
-              className='w-full  mt-20'
+              className='w-full mt-20'
             />           
           </div>
           <div className="w-full md:w-1/2 py-10 px-5 md:px-10">
@@ -73,7 +78,7 @@ const Register = () => {
                     <input
                       type="text"
                       id="firstName"
-                      className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                      className={`w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 focus:border-indigo-500 outline-none ${errors.firstName ? 'border-red-500' : 'border-gray-200'}`}
                       placeholder="John"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
@@ -90,7 +95,7 @@ const Register = () => {
                     <input
                       type="text"
                       id="lastName"
-                      className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                      className={`w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 focus:border-indigo-500 outline-none ${errors.lastName ? 'border-red-500' : 'border-gray-200'}`}
                       placeholder="Smith"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
@@ -109,7 +114,7 @@ const Register = () => {
                     <input
                       type="email"
                       id="email"
-                      className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                      className={`w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 focus:border-indigo-500 outline-none ${errors.email ? 'border-red-500' : 'border-gray-200'}`}
                       placeholder="johnsmith@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -128,7 +133,7 @@ const Register = () => {
                     <input
                       type="password"
                       id="password"
-                      className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                      className={`w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 focus:border-indigo-500 outline-none ${errors.password ? 'border-red-500' : 'border-gray-200'}`}
                       placeholder="************"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}

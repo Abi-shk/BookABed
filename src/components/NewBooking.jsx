@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 import { FaArrowRightArrowLeft } from 'react-icons/fa6';
 import SubHeader from './SubHeader';
 
+
+
+
 function NewBooking({ currentView, setCurrentView }) {
     const [travelers, setTravelers] = useState({ adults: 1, children: 0, infants: 0 });
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [fromValue, setFromValue] = useState('');
     const [toValue, setToValue] = useState('');
     const [tripType, setTripType] = useState('one-way');
-  
+   
+    
+
     const swapValues = () => {
         setFromValue((prevFrom) => {
           setToValue((prevTo) => prevFrom);
